@@ -17,7 +17,8 @@ namespace CabInvoiceGenerator
         {
             INVALID_DISTANCE,
             INVALID_TIME,
-            INVALID_RIDE_TYPE
+            INVALID_RIDE_TYPE,
+            NULL_RIDE
         }
     }
 }

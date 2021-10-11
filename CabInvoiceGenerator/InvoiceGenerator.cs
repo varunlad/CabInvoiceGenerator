@@ -50,7 +50,7 @@ namespace CabInvoiceGenerator
         /// or
         /// Invalid Time
         /// </exception>
-        public double CalculateFair(double distance,int time)
+        public double CalculateFare(double distance,int time)
         {
             double totalFair = 0;
             try
@@ -70,6 +70,22 @@ namespace CabInvoiceGenerator
             }
             return Math.Max(totalFair,MIN_FAIR);
         }
-
+        public InvoiceSummary CalculateFare(Ride[] rides)
+        {
+            double totalFare = 0;
+            try
+            {
+                foreach(Ride ride in rides)
+                {
+                    totalFare += this.CalculateFare(ride.distance, ride.time);
+                }
+            }
+            catch(CabInvoiceException)
+            {
+                if (rides == null)
+                    throw new CabInvoiceException(CabInvoiceException.ExceptionType.NULL_RIDE, "no ride found");
+            }
+            return new InvoiceSummary(rides.Length, totalFare);
+        }
     }
 }
